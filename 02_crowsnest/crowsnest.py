@@ -13,8 +13,7 @@ def get_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 
-    parser.add_argument('word', metavar='ward', type=str,help='positional str of what you see')
-
+    parser.add_argument('word', metavar='word', type=str,help='A word')
     return parser.parse_args()
 
 
@@ -25,11 +24,11 @@ def main():
     args = get_args()
     word = args.word
     article = 'an' if word[0].lower() in 'aeiou' else 'a'
+    # print('Ahoy, Captain, {} {} off the larboard bow!'.format(article, word))
 
+    print(f'Ahoy, Captain, {article} {word} off the larboard bow!')
 
-    print(f'Ahoy, Captain! {article} {word} off the larboard bow!')
-
-
+    
 
 # --------------------------------------------------
 if __name__ == '__main__':

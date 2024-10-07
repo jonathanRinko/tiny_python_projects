@@ -5,6 +5,8 @@ import os
 from subprocess import getstatusoutput, getoutput
 
 prg = './crowsnest.py'
+
+
 consonant_words = [
     'brigantine', 'clipper', 'dreadnought', 'frigate', 'galleon', 'haddock',
     'junk', 'ketch', 'longboat', 'mullet', 'narwhal', 'porpoise', 'quay',
@@ -18,24 +20,25 @@ template = 'Ahoy, Captain, {} {} off the larboard bow!'
 # --------------------------------------------------
 def test_exists():
     """exists"""
-
     assert os.path.isfile(prg)
 
 
 # --------------------------------------------------
 def test_usage():
     """usage"""
-
+    prg = 'python crowsnest.py'
     for flag in ['-h', '--help']:
         rv, out = getstatusoutput(f'{prg} {flag}')
-        assert rv == 0
-        assert out.lower().startswith('usage')
-
+        # assert rv == 0
+        # assert out.lower().startswith('usage')
+        print(f'Flag: {flag}, Return Value: {rv}, Output: {out}')
+        assert rv == 0, f'Expected return code 0, but got {rv}'
+        assert out.lower().startswith('usage'), f'Expected output to start with "usage", but got: {out}'
 
 # --------------------------------------------------
 def test_consonant():
     """brigantine -> a brigantine"""
-
+    prg = 'python crowsnest.py'
     for word in consonant_words:
         out = getoutput(f'{prg} {word}')
         assert out.strip() == template.format('a', word)
@@ -44,7 +47,7 @@ def test_consonant():
 # --------------------------------------------------
 def test_consonant_upper():
     """brigantine -> a Brigatine"""
-
+    prg = 'python crowsnest.py'
     for word in consonant_words:
         out = getoutput(f'{prg} {word.title()}')
         assert out.strip() == template.format('a', word.title())
@@ -53,7 +56,7 @@ def test_consonant_upper():
 # --------------------------------------------------
 def test_vowel():
     """octopus -> an octopus"""
-
+    prg = 'python crowsnest.py'
     for word in vowel_words:
         out = getoutput(f'{prg} {word}')
         assert out.strip() == template.format('an', word)
@@ -62,7 +65,7 @@ def test_vowel():
 # --------------------------------------------------
 def test_vowel_upper():
     """octopus -> an Octopus"""
-
+    prg = 'python crowsnest.py'
     for word in vowel_words:
         out = getoutput(f'{prg} {word.upper()}')
         assert out.strip() == template.format('an', word.upper())
